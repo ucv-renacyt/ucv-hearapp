@@ -1,0 +1,93 @@
+{% extends './template-student.html' %}
+
+{% block body %}
+<style>
+    .navbar {
+        margin-bottom: 0 !important;
+    }
+    .highlight {
+        background-color: yellow;
+    }
+    #recorded-content{
+        max-height: 500px; 
+        overflow-y: auto;
+
+    }
+</style>
+<div class="container-fluid px-0">
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ url_for('student_classes') }}" class="btn btn-sm btn-primary ms-2 mt-2"><i class='bx bx-left-arrow-alt'></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 pt-4 pb-3">
+            <h1 class="text-center fw-bold">{{ clase[0] }}</h1>
+            <p class="text-center">{{ clase[1] }}</p>
+        </div>
+    </div>
+    <div class="row px-5">
+        <div class="col-xl-12 col-md-12">
+            <div class="card p-3 shadow">
+                <p id="recorded-content" class="fs-2">{{ clase[5] }}</p>
+            </div>
+            <button id="start-class-btn" class="btn btn-primary mt-3">Iniciar clase</button>
+            <button id="stop-class-btn" class="btn btn-danger mt-3">Detener clase</button>
+            <button id="generate-summary-btn" class="btn btn-success mt-3">Generar Resumen</button>
+        </div>
+        <div class="col-xl-12 col-md-12">
+            <div class="card p-3 shadow">
+                <h5 class="fs-2">Resumen:</h5>
+                <p id="summary-content" class="fs-2">{{ clase[6] }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    let intervalId;
+    let previousContent = '';
+
+    $('#start-class-btn').on('click', function() {
+        const classId = "{{ request.args.get('class_id') }}";
+        intervalId = setInterval(function() {
+            $.get('/get-recorded-content', { class_id: classId }, function(data) {
+                if(data.status === 'success') {
+                    const newContent = data.recorded_content;
+                    if (newContent !== previousContent) {
+                        const oldContentLength = previousContent.length;
+                        const newText = newContent.slice(oldContentLength);
+                        const highlightedText = '<span class="highlight">' + newText + '</span>';
+                        $('#recorded-content').html(previousContent + highlightedText);
+                        previousContent = newContent;
+                        setTimeout(() => {
+                            $('#recorded-content').html(newContent);
+                            $('#recorded-content').scrollTop($('#recorded-content')[0].scrollHeight);
+                        }, 3000);
+                        $('#recorded-content').scrollTop($('#recorded-content')[0].scrollHeight);
+                    }
+                } else {
+                    console.log('Error: ' + data.message);
+                }
+            });
+        }, 5000);
+    });
+
+    $('#stop-class-btn').on('click', function() {
+        clearInterval(intervalId);
+    });
+
+    $('#generate-summary-btn').on('click', function() {
+        const classId = "{{ request.args.get('class_id') }}";
+        $.post('/generate-summary', { class_id: classId }, function(data) {
+            if (data.status === 'success') {
+                $('#summary-content').text(data.resumen);
+            } else {
+                console.log('Error: ' + data.message);
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

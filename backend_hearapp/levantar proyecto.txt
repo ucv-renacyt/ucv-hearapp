@@ -1,0 +1,29 @@
+activar entorno virtual .\env\Scripts\activate
+correr o uniciar proyecto python .\src\app.py
+
+instalar flask `pip install flask flask-login flask-mysqldb flask-WTF`
+
+ver tofo lo que tenemos instalado `pip list`
+
+correr o uniciar proyecto `python .\src\[app.py](http://app.py/)`
+
+
+docente
+7002483033 -> Ana Lopez
+password1
+
+estudiante -> Carlos Ramos
+7002483034
+password2
+
+usuario inactivo -> Eduardo Perez
+7002483036
+password4
+
+cambiar a estudiate ok
+
+CURSO: electrónica
+
+	TEMA: Arduino
+-----------------------
+http://127.0.0.1:5000

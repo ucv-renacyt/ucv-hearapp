@@ -1,0 +1,89 @@
+<!-- Herede -->
+{% extends './template-teacher.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Hola Docente {{ user.full_name }} !</h1>
+    </div>
+    
+    <!-- Mostrar mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="row">
+                <div class="col-12">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <!-- Content Row -->
+    <div class="row">
+        <!-- User Profile Form -->
+        <div class="col-xl-6 col-md-8 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <form action="{{ url_for('update_profile_teacher') }}" method="POST">
+                        <div class="mb-3">
+                            <label for="code" class="form-label">Código</label>
+                            <input type="text" class="form-control" id="code" name="code" value="{{ user.code }}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="full_name" class="form-label">Nombre Completo</label>
+                            <input type="text" class="form-control" id="full_name" name="full_name" value="{{ user.full_name }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Género</label>
+                            <select class="form-control" id="gender" name="gender" required>
+                                <option value="male" {% if user.gender == 'male' %}selected{% endif %}>Masculino</option>
+                                <option value="female" {% if user.gender == 'female' %}selected{% endif %}>Femenino</option>
+                                <option value="other" {% if user.gender == 'other' %}selected{% endif %}>Otro</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="civil_status" class="form-label">Estado Civil</label>
+                            <select class="form-control" id="civil_status" name="civil_status">
+                                <option value="single" {% if user.civil_status == 'SOLTERO' %}selected{% endif %}>Soltero</option>
+                                <option value="married" {% if user.civil_status == 'CASADO' %}selected{% endif %}>Casado</option>
+                                <option value="widowed" {% if user.civil_status == 'VIUDO' %}selected{% endif %}>Viudo</option>
+                                <option value="divorced" {% if user.civil_status == 'DIVORCIADO' %}selected{% endif %}>Divorciado</option>
+                                <option value="other" {% if user.civil_status == 'other' %}selected{% endif %}>Otro</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="institutional_mail" class="form-label">Correo Institucional</label>
+                            <input type="email" class="form-control" id="institutional_mail" name="institutional_mail" value="{{ user.institutional_mail }}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="personal_mail" class="form-label">Correo Personal</label>
+                            <input type="email" class="form-control" id="personal_mail" name="personal_mail" value="{{ user.personal_mail }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="phone" name="phone" value="{{ user.phone }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Rol</label>
+                            <input type="text" class="form-control" id="role" name="role" 
+                                    value="{% if user.role_id == 1 %}Docente{% elif user.role_id == 2 %}Estudiante{% else %}Desconocido{% endif %}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="campus" class="form-label">Campus</label>
+                            <input type="text" class="form-control" id="campus" name="campus" value="{{ user.campus }}" readonly>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

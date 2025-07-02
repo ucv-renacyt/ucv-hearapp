@@ -1,0 +1,128 @@
+<!-- Herede -->
+{% extends './template.html' %}
+<!-- Cambiar Titulo -->
+{% block title %}HearApp{% endblock %}
+<!-- Logo Reutilizable -->
+{% block logo %}
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+{% endblock %}
+<!-- Fonts Reutilizable -->
+{% block fonts %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+    rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet">
+{% endblock %}
+<!-- Css Reutilizable -->
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+<!-- Definir Bloque body -->
+{% block body %}
+<div id="particles-js"></div>
+<nav class="navbar navbar-expand-lg p-3">
+    <div class="container-fluid">
+        <a class="navbar-brand title_navbar text-white" href="#">HEAR APP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <div class="d-flex justify-content-lg-end justify-content-center w-100">
+                <div>
+                    <a href="{{ url_for('login') }}" class="btn btn-dark">Iniciar Sesion</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div class="container-fluid text-center">
+        <div class="row">
+            <div class="col-xl-7 col-md-12 p-5 d-flex justify-content-center align-items-center">
+                <div>
+                    <h2 id="titulo" class="title_home text-start"></h2>
+                    <p id="texto_descripcion" class="text_justificado fons_open"></p>
+                    <div class="d-flex">
+                        <a href="{{ url_for('login') }}" class="btn-float d-flex align-items-center gap-1">
+                            <span id="boton-texto"></span> <i class='bx bx-right-arrow-alt fs-4'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-5 col-md-12 row p-3">
+                <div class="col-xl-12 col-md-12 p-2">
+                    <!-- <img src="{{ url_for('static', filename='img/banner2.png') }}"
+                    class="img-fluid rounded slide-in-top" alt=""> -->
+                </div>
+                <div class="col-xl-6 col-md-12 p-2">
+                    <!-- <img src="{{ url_for('static', filename='img/banner1.png') }}"
+                        class="img-fluid rounded slide-in-bottom" alt=""> -->
+                </div>
+                <div class="col-xl-6 col-md-12 p-2">
+                    <!-- <img src="{{ url_for('static', filename='img/banner3.png') }}"
+                        class="img-fluid rounded slide-in-bottom" alt=""> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+<!-- Bloque Js -->
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+    var titulo = "Comunicación Inclusiva: Voz y Señas en Tiempo Real";
+    var descripcion = "Bienvenido a Head App, tu sistema inclusivo en la educación. Con Head App, podrás acceder a clases en vivo con tu profesor y visualizar el contenido en tiempo real a través de reconocimiento de voz o en lenguaje de señas. Únete a nosotros y transforma tu experiencia educativa.";
+    var indexTitulo = 0;
+    var indexDescripcion = 0;
+
+    function mostrarLetraTitulo() {
+        if (indexTitulo < titulo.length) {
+            document.getElementById("titulo").innerHTML += titulo.charAt(indexTitulo);
+            indexTitulo++;
+            setTimeout(mostrarLetraTitulo, 50); // Velocidad de aparición (en milisegundos)
+        }
+    }
+
+    function mostrarLetraDescripcion() {
+        if (indexDescripcion < descripcion.length) {
+            document.getElementById("texto_descripcion").innerHTML += descripcion.charAt(indexDescripcion);
+            indexDescripcion++;
+            setTimeout(mostrarLetraDescripcion, 30); // Velocidad de aparición (en milisegundos)
+        }
+    }
+
+    function mostrarLetraBoton() {
+        var botonTexto = "Empieza Ahora";
+        var indexBoton = 0;
+        var botonElemento = document.getElementById("boton-texto");
+        function agregarLetraBoton() {
+            if (indexBoton < botonTexto.length) {
+                botonElemento.innerHTML += botonTexto.charAt(indexBoton);
+                indexBoton++;
+                setTimeout(agregarLetraBoton, 50); // Velocidad de aparición (en milisegundos)
+            }
+        }
+        agregarLetraBoton();
+    }
+
+    // Llama a las funciones después de que el DOM esté completamente cargado
+    document.addEventListener("DOMContentLoaded", function () {
+        mostrarLetraTitulo();
+        setTimeout(mostrarLetraDescripcion, 1500); // Retraso para comenzar la descripción después del título
+        setTimeout(mostrarLetraBoton, 3000); // Retraso para comenzar el botón después de la descripción
+    });
+</script>
+
+<script src="../../static/js/particles.js"></script>
+{% endblock %}

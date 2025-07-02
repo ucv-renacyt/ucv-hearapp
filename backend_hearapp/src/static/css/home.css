@@ -1,0 +1,102 @@
+:root {
+    --color-primario: #010409;
+    --color-secundario: #191E2E;
+    --color-terciario: #2877EE;
+    --color-cuarto: #FFFFFF;
+}
+
+body {
+    background: var(--color-primario);
+}
+
+#particles-js {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+}
+
+.title_navbar {
+    font-family: "Merriweather", serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.title_home {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+    font-size: 3rem;
+    color: var(--color-cuarto);
+}
+
+.text_justificado {
+    text-align: justify !important;
+    color: var(--color-cuarto);
+}
+
+.fons_open {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.btn-dark {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--color-secundario);
+    --bs-btn-border-color: #212529;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--color-terciario);
+    --bs-btn-hover-border-color: #373b3e;
+    --bs-btn-focus-shadow-rgb: 66, 70, 73;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #4d5154;
+    --bs-btn-active-border-color: #373b3e;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #212529;
+    --bs-btn-disabled-border-color: #212529;
+}
+.btn-outline-dark {
+    --bs-btn-color: var(--color-primario);
+    --bs-btn-border-color: #212529;
+    --bs-btn-hover-color: var(--color-primario);
+    --bs-btn-bg: var(--color-cuarto);
+    --bs-btn-hover-bg: var(--color-cuarto);
+    --bs-btn-hover-border-color: #212529;
+    --bs-btn-focus-shadow-rgb: 33, 37, 41;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #212529;
+    --bs-btn-active-border-color: #212529;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #212529;
+    
+    --bs-btn-disabled-border-color: #212529;
+    --bs-gradient: none;
+}
+.btn-float {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--color-secundario);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    animation: float 3s infinite; /* Animación de movimiento */
+}
+.btn-float:hover{
+    background-color: var(--color-terciario);
+    color: #fff;
+}
+
+
+/* Definición de la animación */
+@keyframes float {
+    0%, 100% {
+        transform: translateX(0); /* Empieza y termina en posición inicial */
+    }
+    50% {
+        transform: translateX(50px); /* Mueve hacia la derecha */
+    }
+}

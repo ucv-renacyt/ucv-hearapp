@@ -1,0 +1,46 @@
+{% extends './template-teacher.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800"> <i class="fas fa-chalkboard"></i> Listado de Clases</h1>
+    </div>
+    <!-- Content Row -->
+    <style>
+    .description-text {
+    max-height: 500px;
+    overflow-y: auto;
+}
+    </style>
+    <div class="row">
+        {% if clases %}
+            {% for clase in clases %}
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <!-- <img src="{{ url_for('static', filename='img/banner_classes.png') }}"
+                        class="card-img-top" alt="..."> -->
+                    <div class="card-body">
+                        <h5 class="card-title">{{ clase[0] }}</h5>
+                        <p class="card-text">Nombre del curso: {{ clase[1] }}</p>
+                        <p class="card-text description-text">Descripción: {{ clase[5] }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Fecha de inicio: {{ clase[2] }}</li>
+                        <li class="list-group-item">Fecha de fin: {{ clase[3] }}</li>
+                    </ul>
+                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                        <a href="{{ url_for('live_class_teacher', class_id=clase[7]) }}"
+                            class="card-link btn-sm btn btn-primary w-100"><i class='bx bx-link-external'></i> Entrar</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-md-12">
+                <p>No hay clases disponibles.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

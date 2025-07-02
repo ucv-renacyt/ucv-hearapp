@@ -1,0 +1,139 @@
+{% extends './template-teacher.html' %}
+
+{% block body %}
+<style>
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .icon-container {
+        background-color: rgba(35, 54, 89, 0.5);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        padding: 15px;
+        border-radius: 20px;
+    }
+
+    .icon-container a {
+        background: rgba(35, 54, 89, 0.5);
+        border-radius: 50%;
+        padding: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon-container a:hover {
+        background: #233559;
+    }
+
+    .icon-container a i {
+        color: white;
+        font-size: 24px;
+    }
+
+    .navbar {
+        margin-bottom: 0 !important;
+    }
+
+    .load {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .progress {
+        width: 2em;
+        height: 2em;
+        margin: 0.4em;
+        scale: 0;
+        border-radius: 50%;
+        background: rgb(75, 64, 230);
+        animation: loading_492 2s ease infinite;
+        animation-delay: 1s;
+    }
+
+    @keyframes loading_492 {
+        50% {
+            scale: 1;
+        }
+    }
+
+    .progress:nth-child(2) {
+        animation-delay: 1.3s;
+    }
+
+    .progress:nth-child(3) {
+        animation-delay: 1.7s;
+    }
+</style>
+<div class="container-fluid px-0">
+    <div class="row">
+        <!-- <img src="{{ url_for('static', filename='img/banner_classes.png') }}"> -->
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ url_for('teacher_classes') }}" class="btn btn-sm btn-primary ms-2 mt-2"><i class='bx bx-left-arrow-alt'></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 pt-4 pb-3">
+            <h1 class="text-center fw-bold">{{ clase[0] }}</h1>
+            <p class="text-center">{{ clase[1] }}</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="load" id="loading-animation">
+                <div class="progress"></div>
+                <div class="progress"></div>
+                <div class="progress"></div>
+            </div>
+        </div>
+        <div class="col-6 py-3 d-flex justify-content-center">
+            <div class="d-flex align-items-center gap-4 icon-container">
+                <a href="#" id="stop-btn"><i class='bx bx-microphone-off' ></i></a>
+                <a href="#" id="start-btn"><i class='bx bx-microphone'></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    var classId = "{{ request.args.get('class_id') }}";
+    
+    $('#start-btn').on('click', function() {
+        $.post('/start', { class_id: classId }, function(data) {
+            if (data.status === 'started') {
+                console.log('Grabación iniciada');
+                $('#start-btn').prop('disabled', true);
+                $('#stop-btn').prop('disabled', false);
+                $('#loading-animation').show(); // Mostrar la animación de carga
+            } else if (data.status === 'already recording') {
+                console.log('La grabación ya está en curso');
+            }
+        });
+    });
+
+    $('#stop-btn').on('click', function() {
+        $.post('/stop', function(data) {
+            if (data.status === 'stopped') {
+                console.log('Grabación detenida');
+                $('#start-btn').prop('disabled', false);
+                $('#stop-btn').prop('disabled', true);
+                $('#loading-animation').hide(); // Ocultar la animación de carga
+            }
+        });
+    });
+
+    // Deshabilitar el botón de detener grabación al cargar la página
+    $('#stop-btn').prop('disabled', true);
+});
+</script>
+
+{% endblock %}

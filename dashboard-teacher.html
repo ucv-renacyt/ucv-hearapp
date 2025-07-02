@@ -1,0 +1,91 @@
+<!-- Herede -->
+{% extends './template-teacher.html' %}
+
+
+{% block body %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Bienvenido Docente {{ user.full_name }}</h1>
+    </div>
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Clases Creadas Card Example -->
+        <a class="col-xl-3 col-md-6 mb-4 text-decoration-none" href="{{ url_for('teacher_classes') }}">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Clases Asignadas
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ assigned_classes_count }}</div>
+                            <!-- Aquí debes poner el número dinámicamente -->
+                        </div>
+                        <div class="col-auto">
+                            <!-- <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Estudiantes Inscritos Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Estudiantes Inscritos</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ enrolled_students_count }}</div>
+                            <!-- Aquí debes poner el número dinámicamente -->
+                        </div>
+                        <div class="col-auto">
+                            <!-- <i class="fas fa-user-graduate fa-2x text-gray-300"></i> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evaluaciones Creadas Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Evaluaciones Creadas
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">25</div>
+                            <!-- Aquí debes poner el número dinámicamente -->
+                        </div>
+                        <div class="col-auto">
+                            <!-- <i class="fas fa-pencil-alt fa-2x text-gray-300"></i> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensajes Pendientes Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Mensajes Pendientes</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                            <!-- Aquí debes poner el número dinámicamente -->
+                        </div>
+                        <div class="col-auto">
+                            <!-- <i class="fas fa-envelope fa-2x text-gray-300"></i> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
