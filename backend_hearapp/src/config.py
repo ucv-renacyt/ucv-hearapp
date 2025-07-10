@@ -10,7 +10,7 @@ class DevelopmentConfig(Config):
     MYSQL_PORT = 3306  # Asegúrate de agregar el puerto aquí
     MYSQL_USER = 'root'
     MYSQL_PASSWORD = ''
-    MYSQL_DB = 'db_hearappok'
+    MYSQL_DB = 'db_hearapp'
 
 # Diccionario que mapea nombres de configuraciones ('development') a las clases de configuración correspondientes (DevelopmentConfig)
 config = { 
