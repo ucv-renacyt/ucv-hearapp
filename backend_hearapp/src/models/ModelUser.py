@@ -19,11 +19,17 @@ class ModuleUser():
     @staticmethod
     def get_user_data(db, user_id):
         cursor = db.connection.cursor()
-        sql = "SELECT id, full_name, code, gender, civil_status, institutional_mail, personal_mail, campus_id, rol_id, phone, password, state FROM tbl_user WHERE id = %s"
+        sql = '''
+            SELECT u.id, u.full_name, u.code, u.gender, u.civil_status, u.institutional_mail, u.personal_mail, u.campus_id, u.rol_id, u.phone, u.password, u.state, c.name as campus_name
+            FROM tbl_user u
+            LEFT JOIN tbl_campus c ON u.campus_id = c.id
+            WHERE u.id = %s
+        '''
         cursor.execute(sql, (user_id,))
         row = cursor.fetchone()
 
         if row:
+            # Pasar todos los valores a la clase User (incluyendo campus_name)
             user_data = User(*row)
             return user_data
         else:
