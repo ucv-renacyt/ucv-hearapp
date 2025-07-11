@@ -16,17 +16,16 @@
                 <!-- <img src="{{ url_for('static', filename='img/banner_classes.png') }}"
                     class="card-img-top" alt="..."> -->
                 <div class="card-body">
-                    <h5 class="card-title">{{ clase[1] }}</h5>
-                    <p class="card-text">Nombre del curso: {{ clase[2] }}</p>
-                    <p class="card-text">Descripción: {{ clase[6] }}</p>
+                    <h5 class="card-title">{{ clase.name_class }}</h5>
+                    <p class="card-text">Nombre del curso: {{ clase.name_curso }}</p>
+                    <p class="card-text">Descripción: {{ clase.text }}</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Fecha de inicio: {{ clase[3] }}</li>
-                    <li class="list-group-item">Fecha de fin: {{ clase[4] }}</li>
+                    <li class="list-group-item">Fecha de inicio: {{ clase.start_date }}</li>
+                    <li class="list-group-item">Fecha de fin: {{ clase.end_date }}</li>
                 </ul>
                 <div class="d-flex flex-wrap justify-content-center gap-2">
-                    <a href="{{ url_for('live_class_student', class_id=clase[0]) }}" class="card-link btn-sm btn btn-primary w-100"><i class='bx bx-link-external'></i> Entrar</a>
-
+                    <a href="{{ url_for('live_class_student', class_id=clase.id) }}" class="card-link btn-sm btn btn-primary w-100"><i class='bx bx-link-external'></i> Entrar</a>
                 </div>
             </div>
         </div>

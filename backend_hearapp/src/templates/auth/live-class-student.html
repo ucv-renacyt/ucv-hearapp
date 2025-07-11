@@ -22,14 +22,14 @@
     </div>
     <div class="row">
         <div class="col-12 pt-4 pb-3">
-            <h1 class="text-center fw-bold">{{ clase[0] }}</h1>
-            <p class="text-center">{{ clase[1] }}</p>
+            <h1 class="text-center fw-bold">{{ clase.name_class }}</h1>
+            <p class="text-center">{{ clase.name_curso }}</p>
         </div>
     </div>
     <div class="row px-5">
         <div class="col-xl-12 col-md-12">
             <div class="card p-3 shadow">
-                <p id="recorded-content" class="fs-2">{{ clase[5] }}</p>
+                <p id="recorded-content" class="fs-2">{{ clase.text if clase.text else 'No hay contenido grabado disponible en este momento. Por favor, intente más tarde o contacte a soporte.' }}</p>
             </div>
             <button id="start-class-btn" class="btn btn-primary mt-3">Iniciar clase</button>
             <button id="stop-class-btn" class="btn btn-danger mt-3">Detener clase</button>
@@ -38,7 +38,7 @@
         <div class="col-xl-12 col-md-12">
             <div class="card p-3 shadow">
                 <h5 class="fs-2">Resumen:</h5>
-                <p id="summary-content" class="fs-2">{{ clase[6] }}</p>
+                <p id="summary-content" class="fs-2"></p>
             </div>
         </div>
     </div>

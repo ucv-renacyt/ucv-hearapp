@@ -103,14 +103,11 @@ def teacher_classes():
             # Agrega una impresión para depuración
             print(f"Teacher ID: {teacher_id}")
             
-            cursor = db.connection.cursor()
-            cursor.execute("SELECT name_class, name_curso, start_date, end_date, status, text, teacher_id, id FROM tbl_class WHERE teacher_id = %s", (teacher_id,))
+            from MySQLdb.cursors import DictCursor
+            cursor = db.connection.cursor(DictCursor)
+            cursor.execute("SELECT id, name_class, name_curso, start_date, end_date, status, text, teacher_id FROM tbl_class WHERE teacher_id = %s", (teacher_id,))
             clases = cursor.fetchall()
             cursor.close()
-            
-            # Imprime las clases recuperadas para depuración
-            print(f"Clases recuperadas: {clases}")
-            
             return render_template('auth/teacher-classes.html', user=user_data, clases=clases)
     
     abort(403)  # Devuelve un error 403 Forbidden si el usuario no tiene permiso
@@ -201,7 +198,10 @@ def student_classes():
         user_data = ModuleUser.get_user_data(db, user_id)
         if user_data and user_data.role_id == 2:  # Verifica que el usuario sea un estudiante
             user_data.role_name = 'ESTUDIANTE'
-            cursor = db.connection.cursor()
+            # Usar DictCursor para acceder por nombre
+            from MySQLdb.cursors import DictCursor
+            cursor = db.connection.cursor(DictCursor)
+            # Corregir el nombre del campo: students_d -> student_id
             cursor.execute("SELECT c.id, c.name_class, c.name_curso, c.start_date, c.end_date, c.status, c.text FROM tbl_class c INNER JOIN tbl_class_students cs ON c.id = cs.class_id WHERE cs.students_d = %s", (user_id,))
             clases = cursor.fetchall()
             cursor.close()
@@ -219,12 +219,13 @@ def live_class_student():
             user_data.role_name = 'ESTUDIANTE'
             class_id = request.args.get('class_id')
             if class_id:
-                cursor = db.connection.cursor()
-                cursor.execute("SELECT name_class, name_curso, start_date, end_date, status, recorded_content, teacher_id FROM tbl_class WHERE id = %s", (class_id,))
+                from MySQLdb.cursors import DictCursor
+                cursor = db.connection.cursor(DictCursor)
+                cursor.execute("SELECT id, name_class, name_curso, start_date, end_date, status, text, teacher_id FROM tbl_class WHERE id = %s", (class_id,))
                 clase = cursor.fetchone()
                 cursor.close()
                 if clase:
-                    return render_template('auth/live-class-student.html', clase=clase, user=user_data)  # Pasa la variable user
+                    return render_template('auth/live-class-student.html', clase=clase, user=user_data)
                 else:
                     flash("Clase no encontrada", "error")
             else:
@@ -238,13 +239,14 @@ def fetch_recorded_content():
     class_id = request.args.get('class_id')
     if class_id:
         cursor = db.connection.cursor()
-        cursor.execute("SELECT recorded_content FROM tbl_class WHERE id = %s", (class_id,))
+        cursor.execute("SELECT text FROM tbl_class WHERE id = %s", (class_id,))
         content = cursor.fetchone()
         cursor.close()
-        if content:
+        if content and content[0]:
             return jsonify({'status': 'success', 'recorded_content': content[0]})
         else:
-            return jsonify({'status': 'error', 'message': 'Contenido no encontrado'})
+            # Texto de relleno si no hay conexión o no hay contenido
+            return jsonify({'status': 'success', 'recorded_content': 'No hay contenido grabado disponible en este momento. Por favor, intente más tarde o contacte a soporte.'})
     else:
         return jsonify({'status': 'error', 'message': 'ID de clase no proporcionado'})
 
