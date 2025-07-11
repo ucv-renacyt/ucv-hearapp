@@ -1,0 +1,43 @@
+body {
+  background: #111 !important;
+  font-family: 'Nunito', Arial, sans-serif;
+}
+.block_2 {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.block_2 form {
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 400px;
+  width: 100%;
+}
+.block_2 h1, .block_2 h5, .block_2 p {
+  color: #222;
+}
+.form-floating > label {
+  color: #888;
+}
+.btn-float {
+  background: #233559;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 0.7rem;
+  transition: background 0.2s;
+}
+.btn-float:hover {
+  background: #1a233a;
+  color: #ffd600;
+}
+.circle {
+  width: 16px;
+  height: 16px;
+  background: #ffd600;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+}

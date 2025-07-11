@@ -17,10 +17,10 @@
             <div class="col-12">
                 <div class="col-xl-3 col-md-10 p-5 div_card ms-xl-5 ms-md-0 ms-0">
                     <div class="col-12 d-flex justify-content-center mb-2">
-                        <!-- <img src="dashboard/assets/img/logo_large.png" class="img-fluid" alt=""> -->
+                     
                     </div>
                     <div class="col-12 d-flex justify-content-center mb-2">
-                        <!-- <img src="dashboard/assets/img/logo_hearapp.png" style="width:80px;" alt=""> -->
+                       
                     </div>
                     <div class="d-flex justify-content-center mb-5">
                         <h5 class="fw-bold">HEAR APP</h5>
